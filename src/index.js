@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const expressSession = require('express-session');
 const MemoryStore = require('memorystore')(expressSession);
+const dotenv = require('dotenv').config();
 
 
 /* ----------------------- Configuring App -----------------------*/
@@ -12,22 +13,22 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// /*----------------- Establishing Connection to DB -----------------*/
-// const MONGO_URI = process.env.MONGO_URI;
-// mongoose.connect(
-// 	MONGO_URI,
-// 	{
-// 		useNewUrlParser: true,
-// 		useUnifiedTopology: true,
-// 		useCreateIndex: true,
-// 		useFindAndModify: false,
-// 	},
-// 	(err, db) => {
-// 		//testing the connectivity of the DB
-// 		if (err) console.log('error to connect to the database', err);
-// 		else console.log('successfully connected to the database');
-// 	}
-// );
+/*----------------- Establishing Connection to DB -----------------*/
+const MONGO_URI = process.env.MONGO_URI;
+mongoose.connect(
+	MONGO_URI,
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+		useFindAndModify: false,
+	},
+	(err, db) => {
+		//testing the connectivity of the DB
+		if (err) console.log('error to connect to the database', err);
+		else console.log('successfully connected to the database');
+	}
+);
 
 
 /* -------------- checking backend health ---------------------- */
