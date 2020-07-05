@@ -26,6 +26,7 @@
     "memorystore": "^1.6.2",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.21",
+    "passport": "^0.4.1",
     "save": "^2.4.0"
   }
 }
