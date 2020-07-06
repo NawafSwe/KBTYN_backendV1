@@ -8,6 +8,8 @@ const MemoryStore = require('memorystore')(expressSession);
 const dotenv = require('dotenv').config();
 const methodOverride = require('method-override');
 const passport = require('passport');
+const userRouter = require('./routes/userRoute');
+const moment =  require('moment');
 
 /* ----------------------- Configuring App -----------------------*/
 const app = express();
@@ -56,7 +58,7 @@ app.use(
 			// prune expired entries every 24h
 			checkPeriod: 86400000,
 		}),
-		secret: process.env.SECRET,
+		secret: 'KBTYN',
 	})
 );
 
@@ -73,6 +75,10 @@ passport.deserializeUser(User.deserializeUser());
 app.get('/', (req, res) => {
 	res.send('Hello World').status(200);
 });
+
+
+/* -------------- Importing routers ---------------------- */
+app.use('/users',userRouter);
 
 /* -------------- establishing connection ---------------------- */
 const PORT = process.env.PORT || 6666;

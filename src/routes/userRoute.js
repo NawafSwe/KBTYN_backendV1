@@ -8,8 +8,7 @@ const express = require('express'),
 userRouter.get('/', async (req, res) => {
 	const response = await userController.getUsers();
 	res.json(response).status(200);
-	
-});
+	});
 
 /* '/' this route is GET ROUTE where it gets a user from the database by the id */
 userRouter.get('/:id',async (req, res) => {
@@ -19,7 +18,7 @@ userRouter.get('/:id',async (req, res) => {
 
 /* '/' this route is post ROUTE where it posts a user to the database*/
 
-userRouter.post('/', validate('postUser'), async (req, res) => {
+userRouter.post('/', async (req, res) => {
 	const response = await userController.postUser(req.body);
 	res.json(response).status(200);
 	});
@@ -31,9 +30,11 @@ userRouter.put('/:id',async (req, res) => {
 	});
 
 /*'/:id' this route is DELETE ROUTE where it deletes a user from the database */
-userRouter.delete('/:id', validate('deleteUser'), async (req, res) => {
+userRouter.delete('/:id', async (req, res) => {
 	const response = await userController.deleteUser(req.params.id);
 	res.json(response).status(200);
 	});
+
+
 
 module.exports = userRouter;
