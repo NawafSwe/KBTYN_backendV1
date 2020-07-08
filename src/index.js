@@ -5,13 +5,26 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const expressSession = require('express-session');
 const MemoryStore = require('memorystore')(expressSession);
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv');
 const methodOverride = require('method-override');
 const passport = require('passport');
 const userRouter = require('./routes/userRoute');
-const moment =  require('moment');
+const User = require('./models/user');
+const moment = require('moment');
+const dbConnection = require('../db');
+dotenv.config();
 
+/*----------------- Establishing Connection to DB -----------------*/
+dbConnection();
+
+/* -------------- choosing Env ---------------------- */
+if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
+	require('custom-env').env(process.env.NODE_ENV);
+} else {
+	require('dotenv').config();
+}
 /* ----------------------- Configuring App -----------------------*/
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,23 +43,6 @@ app.use((req, res, next) => {
 	next();
 });
 
-/*----------------- Establishing Connection to DB -----------------*/
-const MONGO_URI = process.env.MONGO_URI;
-mongoose.connect(
-	MONGO_URI,
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true,
-		useFindAndModify: false,
-	},
-	(err, db) => {
-		//testing the connectivity of the DB
-		if (err) console.log('error to connect to the database', err);
-		else console.log('successfully connected to the database');
-	}
-);
-
 /* ----------------------- Configuring Passport  -----------------------*/
 
 app.use(
@@ -58,7 +54,7 @@ app.use(
 			// prune expired entries every 24h
 			checkPeriod: 86400000,
 		}),
-		secret: 'KBTYN',
+		secret: process.env.SECRET,
 	})
 );
 
@@ -76,12 +72,11 @@ app.get('/', (req, res) => {
 	res.send('Hello World').status(200);
 });
 
-
 /* -------------- Importing routers ---------------------- */
-app.use('/users',userRouter);
+app.use('/users', userRouter);
 
 /* -------------- establishing connection ---------------------- */
-const PORT = process.env.PORT || 6666;
+const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 
 app.listen(PORT, HOST);

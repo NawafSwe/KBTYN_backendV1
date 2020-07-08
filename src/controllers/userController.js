@@ -11,15 +11,14 @@ const getUsers = async () => {
 		const response = await User.find({});
 		return response;
 	} catch (e) {
-        console.log(`error happen in user controller at getUsers() error message : ${e.message}`);
-        return { message: ` something went wrong cannot get users error is ${e.message}` };
+		console.log(`error happen in user controller at getUsers() error message : ${e.message}`);
+		return { message: ` something went wrong cannot get users error is ${e.message}` };
 	}
 };
 
-
 /**
  * this function 'postUser' is to add a user to the database.
- * @param {Object}   user it is an Object of type user.
+ * @param {Object}  user it is an Object of type user.
  * @return {Object} it returns the user that was added if there is no error.
  * @return {Error} it returns an error if there is an error.
  *
@@ -37,10 +36,10 @@ const postUser = async (user) => {
 		console.log('error ocurred in userController at postUser() ', e.message);
 		return {
 			message: `cannot post ${user.username} or ${user.email} it is already exists please pick another`,
+			status: 400,
 		};
 	}
 };
-
 
 /**
  * this function 'putUser' is to update a user information from the database.
