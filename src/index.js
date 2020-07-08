@@ -1,7 +1,6 @@
 /* ----------------------------- importing packages ----------------------------- */
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const expressSession = require('express-session');
 const MemoryStore = require('memorystore')(expressSession);
@@ -15,7 +14,7 @@ const dbConnection = require('../db');
 dotenv.config();
 
 /*----------------- Establishing Connection to DB -----------------*/
-dbConnection();
+ dbConnection();
 
 /* -------------- choosing Env ---------------------- */
 if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
