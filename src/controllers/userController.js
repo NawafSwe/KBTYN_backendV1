@@ -12,7 +12,11 @@ const getUsers = async () => {
 		return response;
 	} catch (e) {
 		console.log(`error happen in user controller at getUsers() error message : ${e.message}`);
-		return { message: ` something went wrong cannot get users error is ${e.message}` };
+		return {
+			message: ` something went wrong cannot get users error is ${e.message}`,
+			code: 400,
+			codeStatus: 'Bad Request',
+		};
 	}
 };
 
@@ -29,14 +33,20 @@ const postUser = async (user) => {
 		/*the process is to register the user using passport by passing user email and user name to be unique 
 		passport will do the check for the database if the username or the email is taken or not.
 		*/
-		const registerUser = new User({ email: user.email, username: user.username });
+		const registerUser = new User({ phoneNumber: user.phoneNumber, username: user.username });
 		const response = await User.register(registerUser, user.password);
-		return { username: response.username, message: 'user was added' };
+		return {
+			username: response.username,
+			message: 'user was added',
+			status: 200,
+			codeStatus: 'OK',
+		};
 	} catch (e) {
 		console.log('error ocurred in userController at postUser() ', e.message);
 		return {
 			message: `cannot post ${user.username} or ${user.email} it is already exists please pick another`,
 			status: 400,
+			codeStatus: 'Bad Request',
 		};
 	}
 };
@@ -63,20 +73,34 @@ const putUser = async (id, user) => {
 				await fetchUser.save();
 			} else if (key === 'username') {
 				await User.findByIdAndUpdate(id, { username: value });
-			} else if (key === 'email') {
-				await User.findByIdAndUpdate(id, { email: value });
-			} else if (key === 'age') {
-				await User.findByIdAndUpdate(id, { age: value });
-			} else if (key === 'gender') {
-				await User.findByIdAndUpdate(id, { gender: value });
+			} else if (key === 'phoneNumber') {
+				await User.findByIdAndUpdate(id, { phoneNumber: value });
+			} else if (key === 'totalRating') {
+				await User.findByIdAndUpdate(id, { totalRating: value });
+			} else if (key === 'numberOfRated') {
+				await User.findByIdAndUpdate(id, { numberOfRated: value });
+			} else if (key === 'isDriver') {
+				await User.findByIdAndUpdate(id, { isDriver: value });
+			} else if (key === 'isAdmin') {
+				await User.findByIdAndUpdate(id, { isAdmin: value });
 			}
+			//trips here
 		}
 		const response = await User.findById(id);
 		console.log(response);
-		return { username: response.username, message: 'user was updated' };
+		return {
+			username: response.username,
+			message: 'user was updated',
+			code: 200,
+			codeStatus: 'OK',
+		};
 	} catch (e) {
 		console.log('error ocurred in userController at putUser() ', e.message);
-		return { message: ` something went wrong cannot update the user with the id ${id}` };
+		return {
+			message: ` something went wrong cannot update the user with the id ${id}`,
+			code: 400,
+			codeStatus: 'Bad Request',
+		};
 	}
 };
 
@@ -91,10 +115,14 @@ const putUser = async (id, user) => {
 const getUserById = async (id) => {
 	try {
 		const response = await User.findById(id);
-		return { username: response.username };
+		return { username: response.username, status: 200, codeStatus: 'OK' };
 	} catch (e) {
 		console.log('error ocurred in userController at getUserById() ', e.message);
-		return { message: ` something went wrong cannot get the user with the id ${id}` };
+		return {
+			message: ` something went wrong cannot get the user with the id ${id}`,
+			code: 404,
+			codeStatus: 'Not Found',
+		};
 	}
 };
 
@@ -109,10 +137,20 @@ const getUserById = async (id) => {
 const deleteUser = async (id) => {
 	try {
 		const response = await User.findByIdAndDelete(id);
-		return { username: response.username, message: 'user was deleted' };
+		return {
+			username: response.username,
+			message: 'user was deleted',
+			status: 200,
+			codeStatus: 'OK',
+		};
 	} catch (e) {
 		console.log('error ocurred in userController at deleteUser() ', e.message);
-		return { message: ` something went wrong cannot delete the user with the id ${id}` };
+		console.log(e);
+		return {
+			message: ` something went wrong cannot delete the user with the id ${id}`,
+			code: 404,
+			codeStatus: 'Not Found',
+		};
 	}
 };
 

@@ -10,11 +10,8 @@ const passport = require('passport');
 const userRouter = require('./routes/userRoute');
 const User = require('./models/user');
 const moment = require('moment');
-const dbConnection = require('../db');
-dotenv.config();
+const mongoose = require('mongoose');
 
-/*----------------- Establishing Connection to DB -----------------*/
- dbConnection();
 
 /* -------------- choosing Env ---------------------- */
 if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
@@ -29,6 +26,23 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
+
+/*----------------- Establishing Connection to DB -----------------*/
+const MONGO_URI = process.env.MONGO_URI;
+mongoose.connect(
+	MONGO_URI,
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+		useFindAndModify: false,
+	},
+	(err, db) => {
+		//testing the connectivity of the DB
+		if (err) console.log('error to connect to the database', err);
+		else console.log('successfully connected to the database ', db.name);
+	}
+);
 
 /*---------------------------- Middleware ----------------------------*/
 

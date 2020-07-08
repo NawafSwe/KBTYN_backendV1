@@ -7,9 +7,9 @@ const { Double } = require('mongodb');
 const userSchema = mongoose.Schema({
 	username: { type: String, require: true, unique: true },
 	phoneNumber: { type: String, require: true, unique: true },
+	password: { type: String, require: true },
 	totalRating: { type: Number },
 	numberOfRated: { type: Number },
-	password: { type: String, require: true },
 	isDriver: { type: Boolean, default: false },
 	isAdmin: { type: Boolean, default: false },
 	trips: [],
