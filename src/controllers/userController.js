@@ -34,9 +34,11 @@ const postUser = async (user) => {
 		passport will do the check for the database if the username or the email is taken or not.
 		*/
 		const registerUser = new User({ phoneNumber: user.phoneNumber, username: user.username });
+
 		const response = await User.register(registerUser, user.password);
 		return {
 			username: response.username,
+			phoneNumber: response.phoneNumber,
 			message: 'user was added',
 			status: 200,
 			codeStatus: 'OK',

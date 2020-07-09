@@ -4,14 +4,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const expressSession = require('express-session');
 const MemoryStore = require('memorystore')(expressSession);
-const dotenv = require('dotenv');
 const methodOverride = require('method-override');
 const passport = require('passport');
 const userRouter = require('./routes/userRoute');
+const authenticationRouter = require('./routes/authenticationRouter');
 const User = require('./models/user');
 const moment = require('moment');
 const mongoose = require('mongoose');
-
 
 /* -------------- choosing Env ---------------------- */
 if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
@@ -87,6 +86,7 @@ app.get('/', (req, res) => {
 
 /* -------------- Importing routers ---------------------- */
 app.use('/users', userRouter);
+app.use(authenticationRouter);
 
 /* -------------- establishing connection ---------------------- */
 const PORT = process.env.PORT || 3000;
