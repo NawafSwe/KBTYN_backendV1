@@ -13,7 +13,7 @@ const moment = require('moment');
 const mongoose = require('mongoose');
 
 /* -------------- choosing Env ---------------------- */
-if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV.trim() === 'staging' || process.env.NODE_ENV.trim() === 'production') {
 	require('custom-env').env(process.env.NODE_ENV);
 } else {
 	require('dotenv').config();
