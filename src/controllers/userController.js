@@ -156,4 +156,32 @@ const deleteUser = async (id) => {
 	}
 };
 
-module.exports = { getUsers, postUser, putUser, deleteUser, getUserById };
+
+/**
+ * this function 'getUserByPhone' is to get a user information from the database by his/her phone number.
+ * @param {String} userPhone it is the phone number of the user 
+ * @return {Object} it returns the user that was found if there is no error.
+ * @return {Error} it returns an error if there is an error.
+ *
+ */
+const getUserByPhone = async (userPhone) => {
+	try {
+		const response = await User.find({ phoneNumber: userPhone.phoneNumber });
+		return {
+			username: response.username,
+			message: 'user was found',
+			status: 200,
+			codeStatus: 'OK',
+		};
+	} catch (e) {
+		console.log('error ocurred in userController at getUserByPhone() ', e.message);
+		console.log(e);
+		return {
+			message: ` something went wrong cannot get the user with the id ${userPhone}`,
+			code: 404,
+			codeStatus: 'Not Found',
+		};
+	}
+};
+
+module.exports = { getUsers, postUser, putUser, deleteUser, getUserById,getUserByPhone };

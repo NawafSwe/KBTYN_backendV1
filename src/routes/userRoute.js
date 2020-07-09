@@ -50,4 +50,14 @@ userRouter.delete('/:id', async (req, res) => {
 	else res.json(response).status(400);
 });
 
+/*'/userByPhone' this route is post ROUTE where it post a userPhone number to check if user exist on the db or not */
+userRouter.post('/getUserByPhone', async (req, res) => {
+	const response = await userController.getUserByPhone(req.body);
+	// checking the code status if its 200
+	if (response.code === 200) res.json(response).status(200);
+	//else just return the whole
+	else res.json(response).status(400);
+	console.log(response);
+});
+
 module.exports = userRouter;
