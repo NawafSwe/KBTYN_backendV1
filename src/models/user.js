@@ -12,7 +12,21 @@ const userSchema = mongoose.Schema({
 	numberOfRated: { type: Number },
 	isDriver: { type: Boolean, default: false },
 	isAdmin: { type: Boolean, default: false },
-	trips: [],
+	trips: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Trip',
+		},
+	],
+	listOfCustomers: [
+		{
+			id: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User',
+			},
+			username: { type: String },
+		},
+	],
 });
 
 //driver has list_of_customers []
