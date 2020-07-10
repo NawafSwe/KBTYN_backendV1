@@ -1,18 +1,29 @@
-/*------------------ Trip Model  ------------------ */
+//trip model
 const mongoose = require('mongoose');
-/*---------------------------- creating schema ----------------------------*/
+//trip schema
 const tripSchema = mongoose.Schema({
 	trId: { type: Number, require: true, unique: true },
 	location: { type: String },
     rateDriver: { type: Number },
     rateUser: { type: Number },
-    tier: { type: String },
-	Time: { type: String },
+    tierSize: { type: Number },
+	time: { type: String },
     date: { type: Date },
 	isComplete: { type: Boolean, default: false },
-    customers: [],
-    driver: { type: Number }
+	listOfCustomers: [
+		{
+			id: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Customer',
+			},
+			username: { type: String },
+        },
+    ],
+    driver: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Driver',
+	},
 });
-/*---------------------------- creating the model in the DB ----------------------------*/
+//creating model in db
 const Trip = mongoose.model('Trip', tripSchema);
 module.exports = Trip;
