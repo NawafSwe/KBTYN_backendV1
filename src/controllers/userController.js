@@ -157,17 +157,18 @@ const deleteUser = async (id) => {
 	}
 };
 
-
 /**
  * this function 'getUserByPhone' is to get a user information from the database by his/her phone number.
- * @param {String} userPhone it is the phone number of the user 
+ * @param {String} userPhone it is the phone number of the user
  * @return {Object} it returns the user that was found if there is no error.
  * @return {Error} it returns an error if there is an error.
  *
  */
-const getUserByPhone = async (userPhone) => {
+const getUserByPhone = async (user) => {
 	try {
-		const response = await User.find({ phoneNumber: userPhone.phoneNumber });
+		console.log(user);
+		const response = await User.findOne({ phoneNumber: user.phoneNumber });
+		console.log(response);
 		return {
 			username: response.username,
 			message: 'user was found',
@@ -185,4 +186,29 @@ const getUserByPhone = async (userPhone) => {
 	}
 };
 
-module.exports = { getUsers, postUser, putUser, deleteUser, getUserById,getUserByPhone };
+/**
+ * this function 'getDrivers' is to get a all drivers  information from the database by his/her phone number.
+ * @return {list} it returns the list of drivers that was found if there is no error.
+ * @return {Error} it returns an error if there is an error.
+ *
+ */
+const getDrivers = async () => {
+	try {
+		const response = await User.find({ isDriver: true });
+
+		return response;
+	} catch (e) {
+		console.log('error ocurred in userController at getDrivers() ', e.message);
+		console.log(e);
+		return {
+			message: ` something went wrong cannot get the drivers`,
+			code: 404,
+			codeStatus: 'Not Found',
+		};
+	}
+};
+
+
+const getDriverById = async () => {};
+
+module.exports = { getUsers, postUser, putUser, deleteUser, getUserById, getUserByPhone };

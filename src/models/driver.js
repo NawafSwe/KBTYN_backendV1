@@ -4,21 +4,22 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 /*---------------------------- creating schema ----------------------------*/
 const userSchema = mongoose.Schema({
-	username: { type: String, require: true, unique: true },
-	phoneNumber: { type: String, require: true, unique: true },
-	password: { type: String, require: true },
-	totalRating: { type: Number },
-	numberOfRated: { type: Number },
-	isDriver: { type: Boolean, default: false },
-	isAdmin: { type: Boolean, default: false },
-	_customer: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Customer',
-	},
-	_driver: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Driver',
-	},
+	trips: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Trip',
+		},
+	],
+	destination: String,
+	listOfCustomers: [
+		{
+			id: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User',
+			},
+			username: { type: String },
+		},
+	],
 });
 
 /*---------------------------- creating the model in the DB ----------------------------*/
