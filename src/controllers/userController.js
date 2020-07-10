@@ -1,5 +1,6 @@
 /* ----------------------------- importing packages ----------------------------- */
 const User = require('../models/user');
+
 /**
  * this function 'getUsers' is gets all the users from the database, it has no params.
  * @return {list} it returns list of Users objects from the database if there is no error.

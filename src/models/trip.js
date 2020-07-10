@@ -1,6 +1,6 @@
-//trip model
+/*------------------ Trip Model  ------------------ */
 const mongoose = require('mongoose');
-//trip schema
+/*---------------------------- creating schema ----------------------------*/
 const tripSchema = mongoose.Schema({
 	trId: { type: Number, require: true, unique: true },
 	location: { type: String },
@@ -13,6 +13,6 @@ const tripSchema = mongoose.Schema({
     customers: [],
     driver: { type: Number }
 });
-//creating model in db
+/*---------------------------- creating the model in the DB ----------------------------*/
 const Trip = mongoose.model('Trip', tripSchema);
 module.exports = Trip;

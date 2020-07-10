@@ -1,7 +1,6 @@
 /*------------------ User Model  ------------------ */
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
-const { Double } = require('mongodb');
 
 /*---------------------------- creating schema ----------------------------*/
 const userSchema = mongoose.Schema({
@@ -29,7 +28,7 @@ const userSchema = mongoose.Schema({
 	],
 });
 
-//driver has list_of_customers []
+
 /*---------------------------- creating the model in the DB ----------------------------*/
 userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model('User', userSchema);

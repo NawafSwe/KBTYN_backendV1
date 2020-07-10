@@ -2,15 +2,25 @@
 const express = require('express'),
 	userRouter = express.Router(),
 	userController = require('../controllers/userController');
+const validate = require('../utils/userValidators');
+const { validationResult } = require('express-validator');
+
 /* ----------------- Routes ---------------- */
 /*          VALIDATION BE AS A MIDDLE WARE              */
 /* '/' this route is GET ROUTE where it gets all the users from the database */
-userRouter.get('/', async (req, res) => {
-	const response = await userController.getUsers();
-	// checking the code status if its 200
-	if (response.code === 200) res.json(response).status(200);
-	//else just return the whole
-	else res.json(response).status(400);
+userRouter.get('/', validate('getUsers'), async (req, res) => {
+	var err = validationResult(req);
+	if (!err.isEmpty()) {
+		res.send(err.mapped()).status(400);
+	} else {
+		const response = await userController.getUsers();
+		// checking the code status if its 200
+		if (response.code === 200) res.json(response).status(200);
+		//else just return the whole
+		else {
+			res.json(response).status(response.status);
+		}
+	}
 });
 
 /* '/' this route is GET ROUTE where it gets a user from the database by the id */
