@@ -1,9 +1,8 @@
 /*------------------ User Model  ------------------ */
 const mongoose = require('mongoose');
-const passportLocalMongoose = require('passport-local-mongoose');
 
 /*---------------------------- creating schema ----------------------------*/
-const userSchema = mongoose.Schema({
+const CustomerSchema = mongoose.Schema({
 	trips: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
@@ -13,6 +12,5 @@ const userSchema = mongoose.Schema({
 });
 
 /*---------------------------- creating the model in the DB ----------------------------*/
-userSchema.plugin(passportLocalMongoose);
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+const Customer = mongoose.model('User', CustomerSchema);
+module.exports = Customer;

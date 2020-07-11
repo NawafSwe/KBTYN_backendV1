@@ -4,22 +4,20 @@ const mongoose = require('mongoose');
 const tripSchema = mongoose.Schema({
 	trId: { type: Number, require: true, unique: true },
 	location: { type: String },
-    rateDriver: { type: Number },
-    rateUser: { type: Number },
-    tierSize: { type: Number },
+	rateDriver: { type: Number },
+	rateUser: { type: Number },
+	tierSize: { type: Number },
 	time: { type: String },
-    date: { type: Date },
+	date: { type: Date },
 	isComplete: { type: Boolean, default: false },
-	listOfCustomers: [
-		{
-			id: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Customer',
-			},
-			username: { type: String },
-        },
-    ],
-    driver: {
+	customer: {
+		id: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Customer',
+		},
+		username: { type: String },
+	},
+	driver: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Driver',
 	},

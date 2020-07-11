@@ -81,4 +81,4 @@ const deleteTrip = async (id) => {
 	}
 };
 
-module.exports = { getTrips, postTrip, putTrip, deleteTrip, getTripById };
+module.exports = { getTrips, putTrip, deleteTrip };

@@ -1,16 +1,14 @@
 /*------------------ User Model  ------------------ */
 const mongoose = require('mongoose');
-const passportLocalMongoose = require('passport-local-mongoose');
 
 /*---------------------------- creating schema ----------------------------*/
-const userSchema = mongoose.Schema({
+const DriverSchema = mongoose.Schema({
 	trips: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Trip',
 		},
 	],
-	destination: String,
 	listOfCustomers: [
 		{
 			id: {
@@ -23,6 +21,6 @@ const userSchema = mongoose.Schema({
 });
 
 /*---------------------------- creating the model in the DB ----------------------------*/
-userSchema.plugin(passportLocalMongoose);
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+
+const Driver = mongoose.model('Driver', DriverSchema);
+module.exports = Driver;
