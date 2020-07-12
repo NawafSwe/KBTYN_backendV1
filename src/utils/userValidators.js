@@ -44,6 +44,7 @@ const validate = (method) => {
 						'numberOfRated',
 						'isDriver',
 						'isAdmin',
+						'isCustomer',
 						'_customer',
 						'_driver',
 					];
@@ -98,6 +99,9 @@ const validate = (method) => {
 
 				/*  ----------- isDriver VALIDATION ----------- */
 				body('isDriver', 'isDriver must be of type boolean').optional().isBoolean(),
+				
+				/*  ----------- isCustomer VALIDATION ----------- */
+				body('isCustomer', 'isCustomer must be of type boolean').optional().isBoolean(),
 
 				/*  ----------- isAdmin VALIDATION ----------- */
 				body('isAdmin', 'isAdmin must be of type boolean').optional().isBoolean(),
@@ -116,6 +120,7 @@ const validate = (method) => {
 						'numberOfRated',
 						'isDriver',
 						'isAdmin',
+						'isCustomer',
 						'_customer',
 						'_driver',
 					];
@@ -165,6 +170,9 @@ const validate = (method) => {
 
 				/*  ----------- isDriver VALIDATION ----------- */
 				body('isDriver', 'isDriver must be of type boolean').optional().isBoolean(),
+
+				/*  ----------- isCustomer VALIDATION ----------- */
+				body('isCustomer', 'isCustomer must be of type boolean').optional().isBoolean(),
 
 				/*  ----------- isAdmin VALIDATION ----------- */
 				body('isAdmin', 'isAdmin must be of type boolean').optional().isBoolean(),

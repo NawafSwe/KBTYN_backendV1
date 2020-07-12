@@ -9,6 +9,7 @@ const CustomerSchema = mongoose.Schema({
 			ref: 'Trip',
 		},
 	],
+	user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 /*---------------------------- creating the model in the DB ----------------------------*/

@@ -1,5 +1,6 @@
 /* ----------------------------- importing packages ----------------------------- */
 const User = require('../models/user');
+const Customer = require('../models/customer');
 
 /**
  * this function 'getUsers' is gets all the users from the database, it has no params.
@@ -35,8 +36,21 @@ const postUser = async (user) => {
 		passport will do the check for the database if the username or the email is taken or not.
 		*/
 		const registerUser = new User({ phoneNumber: user.phoneNumber, username: user.username });
-
 		const response = await User.register(registerUser, user.password);
+
+		//checking if the user is admin or customer or driver based in the register
+
+		if (user.isCustomer) {
+			//if the user is customer then make a customer in the db and change the status of the user to be a customer
+			await User.findByIdAndUpdate(response._id, { isCustomer: true });
+			//creating customer and linking it to the user
+			const createdCustomer = await Customer.create({ user: response._id });
+		} else if (user.isDriver) {
+			await User.findByIdAndUpdate({ isDriver: true });
+		} else if (user.isAdmin) {
+			await User.findByIdAndUpdate({ isAdmin: true });
+		}
+
 		return {
 			username: response.username,
 			phoneNumber: response.phoneNumber,
@@ -207,7 +221,6 @@ const getDrivers = async () => {
 		};
 	}
 };
-
 
 const getDriverById = async () => {};
 

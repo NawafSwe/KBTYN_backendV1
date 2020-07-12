@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
 	numberOfRated: { type: Number },
 	isDriver: { type: Boolean, default: false },
 	isAdmin: { type: Boolean, default: false },
+	isCustomer: { type: Boolean, default: false },
 	_customer: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Customer',
