@@ -89,9 +89,13 @@ middleware_functions.isLoggedIn = function (req, res, next) {
 	if (req.isAuthenticated()) {
 		// return next() means go next where it is the callback function in the route
 		return next();
+	}else{
+		const message = {
+			message: 'You have to log in',
+		}
+		res.json(message).status(403)
 	}
-	req.flash('error', 'You must login');
-	res.redirect('/login');
+
 };
 
 module.exports = middleware_functions;

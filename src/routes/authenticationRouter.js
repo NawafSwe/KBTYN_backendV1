@@ -6,8 +6,8 @@ const passport = require('passport');
 /* ---------------------------- User Authentication routes  ---------------------------- */
 
 /*'/login' to login user to the application*/
-authenticationRouter.post('/login', function (req, res, next) {
-	passport.authenticate('local', function (err, user, info) {
+authenticationRouter.post('/login', (req, res, next) => {
+	passport.authenticate('local', (err, user, info) => {
 		if (err) {
 			return next(err);
 		}

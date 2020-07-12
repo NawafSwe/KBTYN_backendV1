@@ -8,6 +8,8 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const userRouter = require('./routes/userRoute');
 const authenticationRouter = require('./routes/authenticationRouter');
+const tripRouter = require('./routes/tripRoute');
+const customerRouter = require('./routes/customerRouter');
 const User = require('./models/user');
 const moment = require('moment');
 const mongoose = require('mongoose');
@@ -86,6 +88,8 @@ app.get('/', (req, res) => {
 
 /* -------------- Importing routers ---------------------- */
 app.use('/users', userRouter);
+app.use('/customers', customerRouter);
+app.use('/trips', tripRouter);
 app.use(authenticationRouter);
 
 /* -------------- establishing connection ---------------------- */

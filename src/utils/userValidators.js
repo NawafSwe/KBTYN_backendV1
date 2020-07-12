@@ -4,7 +4,6 @@
 */
 const { body, param } = require('express-validator');
 const validateSchema = require('./checkSchema');
-const passport = require('passport');
 const validate = (method) => {
 	switch (method) {
 		case 'getUsers': {
