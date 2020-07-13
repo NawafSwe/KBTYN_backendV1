@@ -18,6 +18,7 @@ const DriverSchema = mongoose.Schema({
 			username: { type: String },
 		},
 	],
+	user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 /*---------------------------- creating the model in the DB ----------------------------*/
