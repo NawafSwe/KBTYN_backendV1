@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 //trip schema
 const tripSchema = mongoose.Schema({
-	trId: { type: Number, require: true, unique: true },
 	location: { type: String },
 	rateDriver: { type: Number },
 	rateUser: { type: Number },

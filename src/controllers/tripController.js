@@ -14,31 +14,25 @@ const getTrips = async () => {
 	}
 };
 
-const putTrip = async (id, user) => {
+const putTrip = async (id, trip) => {
 	try {
-		/* 
-		using mongoose to re set a password we use a special method 'setPassword' 
-		so we need to check carefully the keys to capture if there is password change in the body  */
-
 		for (let [key, value] of Object.entries(trip)) {
-			if (key === 'trId') {
-				await User.findByIdAndUpdate(id, { trId: value });
-			} else if (key === 'location') {
-				await User.findByIdAndUpdate(id, { location: value });
+			if (key === 'location') {
+				await Trip.findByIdAndUpdate(id, { location: value });
 			} else if (key === 'rateDriver') {
-				await User.findByIdAndUpdate(id, { rateDriver: value });
+				await Trip.findByIdAndUpdate(id, { rateDriver: value });
 			} else if (key === 'rateUser') {
-				await User.findByIdAndUpdate(id, { rateUser: value });
+				await Trip.findByIdAndUpdate(id, { rateUser: value });
 			} else if (key === 'tierSize') {
-				await User.findByIdAndUpdate(id, { tierSize: value });
+				await Trip.findByIdAndUpdate(id, { tierSize: value });
 			} else if (key === 'time') {
-				await User.findByIdAndUpdate(id, { time: value });
+				await Trip.findByIdAndUpdate(id, { time: value });
 			} else if (key === 'date') {
-				await User.findByIdAndUpdate(id, { time: value });
+				await Trip.findByIdAndUpdate(id, { time: value });
 			} else if (key === 'time') {
-				await User.findByIdAndUpdate(id, { date: value });
+				await Trip.findByIdAndUpdate(id, { date: value });
 			} else if (key === 'isComplete') {
-				await User.findByIdAndUpdate(id, { time: value });
+				await Trip.findByIdAndUpdate(id, { time: value });
 			}
 			//customers here
 			//driver here
@@ -52,7 +46,7 @@ const putTrip = async (id, user) => {
 			codeStatus: 'OK',
 		};
 	} catch (e) {
-		console.log('error ocurred in tripController at putUser() ', e.message);
+		console.log('error ocurred in tripController at putTrip() ', e.message);
 		return {
 			message: ` something went wrong cannot update the trip with the id ${id}`,
 			code: 400,
