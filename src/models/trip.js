@@ -8,6 +8,7 @@ const tripSchema = mongoose.Schema({
 	tierSize: { type: Number },
 	time: { type: String },
 	date: { type: Date },
+	statusUpdates: [ {type: String} ],
 	isComplete: { type: Boolean, default: false },
 	customer: {
 		id: {

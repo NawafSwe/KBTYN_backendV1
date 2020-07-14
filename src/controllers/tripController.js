@@ -28,11 +28,11 @@ const putTrip = async (id, trip) => {
 			} else if (key === 'time') {
 				await Trip.findByIdAndUpdate(id, { time: value });
 			} else if (key === 'date') {
-				await Trip.findByIdAndUpdate(id, { time: value });
-			} else if (key === 'time') {
 				await Trip.findByIdAndUpdate(id, { date: value });
 			} else if (key === 'isComplete') {
-				await Trip.findByIdAndUpdate(id, { time: value });
+				await Trip.findByIdAndUpdate(id, { isComplete: value });
+			} else if (key === 'statusUpdates') {
+				await Trip.findByIdAndUpdate(id, { statusUpdates: value });
 			}
 			//customers here
 			//driver here
