@@ -74,8 +74,21 @@ const deleteTrip = async (id) => {
 		};
 	}
 };
-const getTripByDestination = async (destination)=>{
-		// query based on the destination Trip,find({destination:})
+const getTripByLocation = async (destination) => {
+	// query based on the destination Trip,find({destination:})
+	try {
+		const response = await Trip.find({ location: destination });
+		return response;
+	} catch (err) {
+		console.log(
+			`error happened in the trip controller at getTripByLocation() error message : ${err.message}`
+		);
+		return {
+			message: ` something went wrong cannot get trips by destination, error: ${err.message}`,
+			code: 400,
+			codeStatus: 'Bad Request',
+		};
+	}
 };
 
 module.exports = { getTrips, putTrip, deleteTrip };
