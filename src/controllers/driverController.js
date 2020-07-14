@@ -5,7 +5,7 @@ const User = require('../models/user');
 const getDrivers = async () => {
 	try {
 		// finding all drivers and populating all the info of the user
-		const response = await Driver.find({}).populate('user');
+		const response = await Driver.find({}).populate('user').populate('listOfCustomers');
 		return response;
 	} catch (e) {
 		console.log(`error happened at the driverController at getDrivers ${e}`);

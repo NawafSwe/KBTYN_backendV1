@@ -74,5 +74,8 @@ const deleteTrip = async (id) => {
 		};
 	}
 };
+const getTripByDestination = async (destination)=>{
+		// query based on the destination Trip,find({destination:})
+};
 
 module.exports = { getTrips, putTrip, deleteTrip };

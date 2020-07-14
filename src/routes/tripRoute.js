@@ -45,4 +45,6 @@ tripRouter.delete('/:id', async (req, res) => {
 	else res.json(response).status(400);
 });
 
+
+
 module.exports = tripRouter;
