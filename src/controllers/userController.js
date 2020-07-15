@@ -1,6 +1,8 @@
 /* ----------------------------- importing packages ----------------------------- */
 const User = require('../models/user');
 const Customer = require('../models/customer');
+const Driver = require('../models/driver');
+const Admin = require('../models/admin');
 
 /**
  * this function 'getUsers' is gets all the users from the database, it has no params.
@@ -38,19 +40,25 @@ const postUser = async (user) => {
 		const registerUser = new User({ phoneNumber: user.phoneNumber, username: user.username });
 		const response = await User.register(registerUser, user.password);
 
+		console.log(response);
 		//checking if the user is admin or customer or driver based in the register
 
 		if (user.isCustomer) {
-			//if the user is customer then make a customer in the db and change the status of the user to be a customer
-			await User.findByIdAndUpdate(response._id, { isCustomer: true });
-			//creating customer and linking it to the user
-			const createdCustomer = await Customer.create({ user: response._id });
+			const fetchUser = await User.findById(response.id);
+			fetchUser.isCustomer = true;
+			await fetchUser.save();
+			await Customer.create({ user: fetchUser.id });
 		} else if (user.isDriver) {
-			await User.findByIdAndUpdate({ isDriver: true });
+			const fetchUser = await User.findById(response.id);
+			fetchUser.isDriver = true;
+			await fetchUser.save();
+			await Driver.create({ user: fetchUser.id });
 		} else if (user.isAdmin) {
-			await User.findByIdAndUpdate({ isAdmin: true });
+			const fetchUser = await User.findById(response.id);
+			fetchUser.isAdmin = true;
+			await fetchUser.save();
+			await Admin.create({ user: fetchUser.id });
 		}
-
 		return {
 			username: response.username,
 			phoneNumber: response.phoneNumber,
@@ -222,6 +230,5 @@ const getDrivers = async () => {
 	}
 };
 
-const getDriverById = async () => {};
-
+/* ----------------------------- exporting functions ----------------------------- */
 module.exports = { getUsers, postUser, putUser, deleteUser, getUserById, getUserByPhone };

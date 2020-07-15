@@ -1,6 +1,6 @@
-//trip model
+/*------------------ driver Model  ------------------ */
 const mongoose = require('mongoose');
-//trip schema
+/*---------------------------- creating schema ----------------------------*/
 const tripSchema = mongoose.Schema({
 	location: { type: String },
 	rateDriver: { type: Number },
@@ -22,6 +22,6 @@ const tripSchema = mongoose.Schema({
 		ref: 'Driver',
 	},
 });
-//creating model in db
+/*---------------------------- creating the model in the DB ----------------------------*/
 const Trip = mongoose.model('Trip', tripSchema);
 module.exports = Trip;

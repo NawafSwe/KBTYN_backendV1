@@ -1,3 +1,4 @@
+/* ----------------------------- importing packages ----------------------------- */
 const Trip = require('../models/trip');
 
 const getTrips = async () => {
@@ -75,7 +76,7 @@ const deleteTrip = async (id) => {
 	}
 };
 const getTripByLocation = async (destination) => {
-	// query based on the destination Trip,find({destination:})
+
 	try {
 		const response = await Trip.find({ location: destination });
 		return response;
@@ -91,4 +92,5 @@ const getTripByLocation = async (destination) => {
 	}
 };
 
+/* ----------------------------- exporting functions ----------------------------- */
 module.exports = { getTrips, putTrip, deleteTrip };

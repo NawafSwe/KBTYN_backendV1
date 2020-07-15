@@ -3,6 +3,11 @@ const Customer = require('../models/customer');
 const Trip = require('../models/trip');
 const User = require('../models/user');
 
+/** 'getCustomers' functions where it gets all the customers from the db
+ *
+ * @return {list} list of customers objects if there is no error
+ * @return {Error} return an error message if there is an error
+ */
 const getCustomers = async () => {
 	try {
 		// finding all customers and populating all the info of the user
@@ -14,6 +19,12 @@ const getCustomers = async () => {
 	}
 };
 
+/** 'postCustomer' function that posts a new customer to the database
+ *
+ * @param {Object} customer object where it contains the data of a customer
+ * @return {Object} a customer object who was added in the db if there is no error
+ * @return {Error} returns an error message if there is an error
+ */
 const postCustomer = async (customer) => {
 	try {
 		const response = await Customer.create(customer);
@@ -26,6 +37,14 @@ const postCustomer = async (customer) => {
 		};
 	}
 };
+
+/** 'putCustomer' function that updates customer info from the db
+ *
+ * @param {String} id  the id of the customer
+ * @param {Object} customer holds the new data to update the customer data
+ * @return {Object} returns customer object with the old data if there is no error
+ * @return {Error} returns an error message if there is an error
+ */
 
 const putCustomer = async (id, customer) => {
 	try {
@@ -40,6 +59,12 @@ const putCustomer = async (id, customer) => {
 	}
 };
 
+/** 'deleteCustomer' function that deletes customer from the db
+ *
+ * @param {String} id  the id of the customer
+ * @return {Object} returns the deleted customer if there is no error
+ * @return {Error} returns an error message if there is an error
+ */
 const deleteCustomer = async (id) => {
 	try {
 		const holdCustomer = await Customer.findById(id);
@@ -58,4 +83,5 @@ const deleteCustomer = async (id) => {
 	}
 };
 
+/* ----------------------------- exporting functions ----------------------------- */
 module.exports = { getCustomers, deleteCustomer };

@@ -10,6 +10,7 @@ const userRouter = require('./routes/userRoute');
 const authenticationRouter = require('./routes/authenticationRouter');
 const tripRouter = require('./routes/tripRoute');
 const customerRouter = require('./routes/customerRouter');
+const driverRouter = require('./routes/driverRouter');
 const User = require('./models/user');
 const moment = require('moment');
 const mongoose = require('mongoose');
@@ -90,6 +91,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRouter);
 app.use('/customers', customerRouter);
 app.use('/trips', tripRouter);
+app.use('/drivers', driverRouter);
 app.use(authenticationRouter);
 
 /* -------------- establishing connection ---------------------- */

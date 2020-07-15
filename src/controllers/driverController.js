@@ -1,7 +1,14 @@
-const driver = require('../models/driver');
+/* ----------------------------- importing packages ----------------------------- */
+const Driver = require('../models/driver');
 const Trip = require('../models/trip');
 const User = require('../models/user');
+const Customer = require('../models/customer');
 
+/** 'getDrivers' functions where it gets all the drivers from the db
+ *
+ * @return {list} list of drivers objects if there is no error
+ * @return {Error} return an error message if there is an error
+ */
 const getDrivers = async () => {
 	try {
 		// finding all drivers and populating all the info of the user
@@ -13,6 +20,28 @@ const getDrivers = async () => {
 	}
 };
 
+/** 'getDriverById' function that gets a driver from the db by id
+ *
+ * @param {String} id of the wanted customer
+ * @return {Object} driver object that has the data of the requested driver if there is no error
+ * @return {Error} returns an error message if there is no error
+ */
+const getDriverById = async (id) => {
+	try {
+		const response = await (await Driver.findById(id)).populate('user').populate('listOfCustomers');
+		return response;
+	} catch (e) {
+		console.log(`error happen in driverController in getDriverById() ${e}`);
+		return { message: `error occurred please try again later ${e.message}`, status: 500 };
+	}
+};
+
+/** 'postDriver' function that posts new driver to the db
+ *
+ * @param {Object} driver object that has the driver info
+ * @return {Object} returns object of driver that contains the data
+ * @return {Error} returns an error message if there is any error message
+ */
 const postDriver = async (driver) => {
 	try {
 		const response = await Driver.create(driver);
@@ -25,6 +54,14 @@ const postDriver = async (driver) => {
 		};
 	}
 };
+
+/** 'putDriver' function that updates  driver info from the db
+ *
+ * @param {id} id the id of the driver to update
+ * @param {Object} driver object that has the new driver info
+ * @return {Object} returns object of driver that contains the data
+ * @return {Error} returns an error message if there is any error message
+ */
 
 const putDriver = async (id, driver) => {
 	try {
@@ -39,6 +76,12 @@ const putDriver = async (id, driver) => {
 	}
 };
 
+/** 'deleteDriver' function that deletes driver from the db
+ *
+ * @param {String} id  the id of the driver
+ * @return {Object} returns the deleted driver if there is no error
+ * @return {Error} returns an error message if there is an error
+ */
 const deleteDriver = async (id) => {
 	try {
 		const holdDriver = await Driver.findById(id);
@@ -57,6 +100,29 @@ const deleteDriver = async (id) => {
 	}
 };
 
-module.exports = { getDrivers, deleteDriver };
+/** 'acceptCustomer' function that allows the driver to accept a request of driver to take a trip with him by updating the customerList in the driver
+ *
+ * @param {String} id the id of the driver
+ * @param {Object} customer object of customer that contains the id of the customer
+ * @return {Object} returns the info about the driver if there is no error
+ * @return {Error} returns an error message if there is any
+ */
+const acceptCustomer = async (id, customer) => {
+	try {
+		const fetchDriver = await Driver.findById(id);
+		const fetchCustomer = await Customer.findById(customer.id);
+		fetchDriver.listOfCustomers.push(fetchCustomer.id);
+		await fetchDriver.save();
 
-//using trip op and user controller 
+		return await getDriverById(id);
+	} catch (e) {
+		console.log(`error happened at the driverController in acceptCustomer() ${e.message}`);
+		return {
+			message: 'error please try again',
+			status: 500,
+		};
+	}
+};
+
+/* ----------------------------- exporting functions ----------------------------- */
+module.exports = { getDrivers, deleteDriver, getDriverById, putDriver, postDriver, acceptCustomer };

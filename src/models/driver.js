@@ -9,15 +9,7 @@ const DriverSchema = mongoose.Schema({
 			ref: 'Trip',
 		},
 	],
-	listOfCustomers: [
-		{
-			id: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'User',
-			},
-			username: { type: String },
-		},
-	],
+	listOfCustomers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Customer' }],
 	user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 

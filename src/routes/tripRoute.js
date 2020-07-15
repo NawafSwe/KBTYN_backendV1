@@ -1,8 +1,8 @@
 /* ----------------- importing packages and files ---------------- */
 const express = require('express'),
 	tripRouter = express.Router(),
-    tripController = require('../controllers/tripController');
-    /* ----------------- Routes ---------------- */
+	tripController = require('../controllers/tripController');
+/* ----------------- Routes ---------------- */
 /*          VALIDATION BE AS A MIDDLE WARE              */
 /* '/' this route is GET ROUTE where it gets all the trips from the database */
 tripRouter.get('/', async (req, res) => {
@@ -37,38 +37,12 @@ tripRouter.put('/:id', async (req, res) => {
 	else res.json(response).status(400);
 });
 
-// tripRouter.delete('/:id', async (req, res) => {
-// 	const response = await tripController.deleteTrip(req.params.id);
-// 	// checking the code status if its 200
-// 	if (response.code === 200) res.json(response).status(200);
-// 	//else just return the whole
-// 	else res.json(response).status(400);
-// });
-
-tripRouter.delete('/:id', validate('deleteTrip'), async (req, res) => {
-	var err = validationResult(req);
-	if (!err.isEmpty()) {
-		res.send(err.mapped()).status(400);
-	} else {
-		const response = await tripController.deleteTrip(req.params.id);
-		// checking the code status if it's 200
-		if (response.code === 200) res.json(response).status(200);
-		//else just return the whole
-		else {
-			res.json(response).status(response.status);
-		}
-	}
-});
-
-
-tripRouter.post('/', async (req, res) => {
-	const response = await tripController.getTripByLocation(req.body);
+tripRouter.delete('/:id', async (req, res) => {
+	const response = await tripController.deleteTrip(req.params.id);
 	// checking the code status if its 200
 	if (response.code === 200) res.json(response).status(200);
 	//else just return the whole
 	else res.json(response).status(400);
 });
-
-
 
 module.exports = tripRouter;
