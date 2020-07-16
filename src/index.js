@@ -90,6 +90,7 @@ app.get('/', (req, res) => {
 /* -------------- Importing routers ---------------------- */
 app.use('/users', userRouter);
 app.use('/customers', customerRouter);
+//https:localhost:8800/trips
 app.use('/trips', tripRouter);
 app.use('/drivers', driverRouter);
 app.use(authenticationRouter);

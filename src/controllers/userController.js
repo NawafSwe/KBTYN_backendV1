@@ -188,15 +188,22 @@ const deleteUser = async (id) => {
  */
 const getUserByPhone = async (user) => {
 	try {
-		console.log(user);
 		const response = await User.findOne({ phoneNumber: user.phoneNumber });
-		console.log(response);
-		return {
-			username: response.username,
-			message: 'user was found',
-			status: 200,
-			codeStatus: 'OK',
-		};
+		
+		if (response) {
+			return {
+				username: response.username,
+				message: 'user was found',
+				status: 200,
+				codeStatus: 'OK',
+			};
+		} else {
+			return {
+				message: 'user was not found',
+				status: 404,
+				codeStatus: 'Not Fund',
+			};
+		}
 	} catch (e) {
 		console.log('error ocurred in userController at getUserByPhone() ', e.message);
 		console.log(e);
@@ -217,7 +224,6 @@ const getUserByPhone = async (user) => {
 const getDrivers = async () => {
 	try {
 		const response = await User.find({ isDriver: true });
-
 		return response;
 	} catch (e) {
 		console.log('error ocurred in userController at getDrivers() ', e.message);
