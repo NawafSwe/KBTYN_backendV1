@@ -6,9 +6,10 @@ const tripSchema = mongoose.Schema({
 	rateDriver: { type: Number },
 	rateUser: { type: Number },
 	tierSize: { type: Number },
+	packageSize: { type: Number },
 	time: { type: String },
 	date: { type: Date },
-	statusUpdates: [ {type: String} ],
+	statusUpdates: [{ type: String }],
 	isComplete: { type: Boolean, default: false },
 	customer: {
 		id: {
