@@ -9,6 +9,7 @@ const tripSchema = mongoose.Schema({
 	time: { type: String },
 	date: { type: Date },
 	statusUpdates: [{ type: String }],
+	pa: { type: Number },
 	isComplete: { type: Boolean, default: false },
 	customer: [{
 		id: {

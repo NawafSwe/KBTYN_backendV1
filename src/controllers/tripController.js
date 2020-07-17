@@ -57,12 +57,6 @@ const postTrip= async (trip)=>{
 
 }
 
-
-
-
-
-
-
 const getTripById= async (id)=>{
 
 
@@ -110,6 +104,10 @@ const putTrip = async (id, trip) => {
 				await Trip.findByIdAndUpdate(id, { isComplete: value });
 			} else if (key === 'statusUpdates') {
 				await Trip.findByIdAndUpdate(id, { statusUpdates: value });
+			} else if (key === 'username') {
+				await Trip.findByIdAndUpdate(id, { username: value });
+			} else if (key === 'pa') {
+				await Trip.findByIdAndUpdate(id, { pa: value });
 			}
 			//customers here
 			//driver here
@@ -169,4 +167,4 @@ const getTripByLocation = async (destination) => {
 };
 
 /* ----------------------------- exporting functions ----------------------------- */
-module.exports = { getTrips, putTrip, deleteTrip };
+module.exports = { getTrips, putTrip, deleteTrip, getTripById, getTripByLocation, postTrip };
