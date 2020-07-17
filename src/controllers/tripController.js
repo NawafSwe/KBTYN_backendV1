@@ -17,6 +17,80 @@ const getTrips = async () => {
 
 
 
+
+
+
+const postTrip= async (trip)=>{
+
+	const addTrip = new Trip({location:trip.location,date:trip.date,time:trip.time,pa:trip.pa});
+	 
+
+
+	try{
+
+	await addTrip.save();
+
+	return{
+		message:"Trip was Scheduled",
+
+		status: 200, 
+		
+		codeStatus: 'OK' 
+
+	}
+
+
+}catch(e){
+
+	console.log(e+ "we could not Schedule your trip")
+
+
+	return{
+		status:400,
+		codeStatus:"Bad",
+		message:"Something wen wrong, we could not Schedule your Trip",
+	}
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+const getTripById= async (id)=>{
+
+
+	      try{
+					const response = await Trip.findById(id);
+					return{
+						 username: response,status: 200, codeStatus: 'OK' 
+					};
+				}catch(e){
+					console.log("Error in getTripById"+id);
+
+					return {
+						message: ` something went wrong cannot get the user with the id ${id}`,
+						code: 400,
+						codeStatus: 'Bad',
+					};
+
+				}
+
+
+
+
+
+
+}
+
+
+
 const putTrip = async (id, trip) => {
 	try {
 		for (let [key, value] of Object.entries(trip)) {
