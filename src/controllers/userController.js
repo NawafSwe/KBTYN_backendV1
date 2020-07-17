@@ -74,6 +74,7 @@ const postUser = async (user) => {
 		return {
 			username: response.username,
 			phoneNumber: response.phoneNumber,
+			id: response.id,
 			message: 'user was added',
 			status: 200,
 			codeStatus: 'OK',
@@ -128,6 +129,7 @@ const putUser = async (id, user) => {
 		return {
 			username: response.username,
 			message: 'user was updated',
+			id: response.id,
 			code: 200,
 			codeStatus: 'OK',
 		};
@@ -155,7 +157,7 @@ const getUserById = async (id) => {
 			.populate('_customer')
 			.populate('_driver')
 			.populate('_admin');
-		return { username: response.username, status: 200, codeStatus: 'OK' };
+		return { username: response.username, status: 200, codeStatus: 'OK',id:response.id, };
 	} catch (e) {
 		console.log('error ocurred in userController at getUserById() ', e.message);
 		return {
@@ -180,6 +182,7 @@ const deleteUser = async (id) => {
 		return {
 			username: response.username,
 			message: 'user was deleted',
+			id: response.id,
 			status: 200,
 			codeStatus: 'OK',
 		};
@@ -208,6 +211,7 @@ const getUserByPhone = async (user) => {
 		if (response) {
 			return {
 				username: response.username,
+				id: response.id,
 				message: 'user was found',
 				status: 200,
 				codeStatus: 'OK',

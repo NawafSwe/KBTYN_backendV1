@@ -3,6 +3,7 @@ const Driver = require('../models/driver');
 const Trip = require('../models/trip');
 const User = require('../models/user');
 const Customer = require('../models/customer');
+const { response } = require('express');
 
 /** 'getDrivers' functions where it gets all the drivers from the db
  *
@@ -22,7 +23,7 @@ const getDrivers = async () => {
 
 /** 'getDriverById' function that gets a driver from the db by id
  *
- * @param {String} id of the wanted customer
+ * @param {String} id of the wanted driver
  * @return {Object} driver object that has the data of the requested driver if there is no error
  * @return {Error} returns an error message if there is no error
  */
@@ -89,6 +90,7 @@ const deleteDriver = async (id) => {
 		await Driver.findByIdAndDelete(id);
 		return {
 			message: `driver with the id ${id} was successfully deleted`,
+			id: response.id,
 			status: 200,
 		};
 	} catch (e) {
