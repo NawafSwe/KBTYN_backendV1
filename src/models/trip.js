@@ -22,7 +22,7 @@ const tripSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Driver',
 	},
-	username: { type: String }
+	username: { type: String },
 }
 });
 /*---------------------------- creating the model in the DB ----------------------------*/
