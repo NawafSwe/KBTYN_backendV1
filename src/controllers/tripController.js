@@ -24,8 +24,8 @@ const putTrip = async (id, trip) => {
 				await Trip.findByIdAndUpdate(id, { rateDriver: value });
 			} else if (key === 'rateUser') {
 				await Trip.findByIdAndUpdate(id, { rateUser: value });
-			} else if (key === 'tierSize') {
-				await Trip.findByIdAndUpdate(id, { tierSize: value });
+			} else if (key === 'tierOrSize') {
+				await Trip.findByIdAndUpdate(id, { tierOrSize: value });
 			} else if (key === 'time') {
 				await Trip.findByIdAndUpdate(id, { time: value });
 			} else if (key === 'date') {
@@ -41,7 +41,7 @@ const putTrip = async (id, trip) => {
 		const response = await Trip.findById(id);
 		console.log(response);
 		return {
-			trId: response.trId,
+			id: response.id,
 			message: 'trip was updated',
 			code: 200,
 			codeStatus: 'OK',

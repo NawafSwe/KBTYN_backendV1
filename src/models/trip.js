@@ -5,23 +5,25 @@ const tripSchema = mongoose.Schema({
 	location: { type: String },
 	rateDriver: { type: Number },
 	rateUser: { type: Number },
-	tierSize: { type: Number },
-	packageSize: { type: Number },
+	tierOrSize: { type: String },
 	time: { type: String },
 	date: { type: Date },
 	statusUpdates: [{ type: String }],
 	isComplete: { type: Boolean, default: false },
-	customer: {
+	customer: [{
 		id: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Customer',
 		},
 		username: { type: String },
-	},
-	driver: {
+	}],
+	driver: { 
+		id: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Driver',
 	},
+	username: { type: String }
+}
 });
 /*---------------------------- creating the model in the DB ----------------------------*/
 const Trip = mongoose.model('Trip', tripSchema);
