@@ -12,7 +12,10 @@ const Admin = require('../models/admin');
  */
 const getUsers = async () => {
 	try {
-		const response = await User.find({});
+		const response = await User.find({})
+			.populate('_customer')
+			.populate('_driver')
+			.populate('_admin');
 		return response;
 	} catch (e) {
 		console.log(`error happen in user controller at getUsers() error message : ${e.message}`);
@@ -40,24 +43,33 @@ const postUser = async (user) => {
 		const registerUser = new User({ phoneNumber: user.phoneNumber, username: user.username });
 		const response = await User.register(registerUser, user.password);
 
-		console.log(response);
 		//checking if the user is admin or customer or driver based in the register
 
 		if (user.isCustomer) {
 			const fetchUser = await User.findById(response.id);
 			fetchUser.isCustomer = true;
 			await fetchUser.save();
-			await Customer.create({ user: fetchUser.id });
+			//initializing new customer
+			const newCustomer = await Customer.create({ user: fetchUser.id });
+			fetchUser._customer = newCustomer.id;
+			await fetchUser.save();
 		} else if (user.isDriver) {
 			const fetchUser = await User.findById(response.id);
 			fetchUser.isDriver = true;
+
+			//initializing new driver
+			const newDriver = await Driver.create({ user: fetchUser.id });
+			fetchUser._driver = newDriver.id;
 			await fetchUser.save();
-			await Driver.create({ user: fetchUser.id });
 		} else if (user.isAdmin) {
 			const fetchUser = await User.findById(response.id);
 			fetchUser.isAdmin = true;
 			await fetchUser.save();
-			await Admin.create({ user: fetchUser.id });
+
+			//initializing new admin
+			const newAdmin = await Admin.create({ user: fetchUser.id });
+			fetchUser._Admin = newAdmin.id;
+			await fetchUser.save();
 		}
 		return {
 			username: response.username,
@@ -139,7 +151,10 @@ const putUser = async (id, user) => {
 
 const getUserById = async (id) => {
 	try {
-		const response = await User.findById(id);
+		const response = await User.findById(id)
+			.populate('_customer')
+			.populate('_driver')
+			.populate('_admin');
 		return { username: response.username, status: 200, codeStatus: 'OK' };
 	} catch (e) {
 		console.log('error ocurred in userController at getUserById() ', e.message);
@@ -189,7 +204,7 @@ const deleteUser = async (id) => {
 const getUserByPhone = async (user) => {
 	try {
 		const response = await User.findOne({ phoneNumber: user.phoneNumber });
-		
+
 		if (response) {
 			return {
 				username: response.username,
@@ -215,26 +230,7 @@ const getUserByPhone = async (user) => {
 	}
 };
 
-/**
- * this function 'getDrivers' is to get a all drivers  information from the database by his/her phone number.
- * @return {list} it returns the list of drivers that was found if there is no error.
- * @return {Error} it returns an error if there is an error.
- *
- */
-const getDrivers = async () => {
-	try {
-		const response = await User.find({ isDriver: true });
-		return response;
-	} catch (e) {
-		console.log('error ocurred in userController at getDrivers() ', e.message);
-		console.log(e);
-		return {
-			message: ` something went wrong cannot get the drivers`,
-			code: 404,
-			codeStatus: 'Not Found',
-		};
-	}
-};
+
 
 /* ----------------------------- exporting functions ----------------------------- */
 module.exports = { getUsers, postUser, putUser, deleteUser, getUserById, getUserByPhone };

@@ -15,6 +15,8 @@ const getTrips = async () => {
 	}
 };
 
+
+
 const putTrip = async (id, trip) => {
 	try {
 		for (let [key, value] of Object.entries(trip)) {
