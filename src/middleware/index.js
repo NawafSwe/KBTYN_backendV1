@@ -1,6 +1,7 @@
 /*------------------------ creating a middleware object to export it ------------------------ */
 let middleware_functions = {};
 /*------------------------ requiring the models  ------------------------ */
+const User = require('../models/user');
 
 /** isAuthorized_comments Middleware
  *  * this middleware is for checking if the user is have the right authorization to request a
@@ -89,13 +90,12 @@ middleware_functions.isLoggedIn = function (req, res, next) {
 	if (req.isAuthenticated()) {
 		// return next() means go next where it is the callback function in the route
 		return next();
-	}else{
+	} else {
 		const message = {
 			message: 'You have to log in',
-		}
-		res.json(message).status(403)
+		};
+		res.json(message).status(403);
 	}
-
 };
 
 module.exports = middleware_functions;

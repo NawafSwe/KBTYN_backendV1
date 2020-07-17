@@ -16,21 +16,13 @@ const getTrips = async () => {
 };
 
 const postTrip = async (trip) => {
-	const addTrip = new Trip({
-		location: trip.location,
-		date: trip.date,
-		time: trip.time,
-		pa: trip.pa,
-	});
-
 	try {
-		await addTrip.save();
+		const response = await Trip.create(trip);
 
 		return {
 			message: 'Trip was Scheduled',
-
+			id: response.id,
 			status: 200,
-
 			codeStatus: 'OK',
 		};
 	} catch (e) {

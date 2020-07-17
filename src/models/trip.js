@@ -11,21 +11,8 @@ const tripSchema = mongoose.Schema({
 	statusUpdates: [{ type: String }],
 	passengerAmount: { type: Number },
 	isComplete: { type: Boolean, default: false },
-	customer: [
-		{
-			id: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Customer',
-			},
-			username: { type: String },
-		},
-	],
-	driver: {
-		id: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Driver',
-		},
-	},
+	customer: [{type: mongoose.Schema.Types.ObjectId,ref: 'Customer',},],
+	driver: {type: mongoose.Schema.Types.ObjectId,ref: 'Driver',},
 });
 /*---------------------------- creating the model in the DB ----------------------------*/
 const Trip = mongoose.model('Trip', tripSchema);
