@@ -11,6 +11,7 @@ const DriverSchema = mongoose.Schema({
 	],
 	listOfCustomers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Customer' }],
 	user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	carName: { type: String },
 });
 
 /*---------------------------- creating the model in the DB ----------------------------*/
