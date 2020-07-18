@@ -82,7 +82,7 @@ const postUser = async (user) => {
 	} catch (e) {
 		console.log('error ocurred in userController at postUser() ', e.message);
 		return {
-			message: `cannot post ${user.name} or ${user.email} it is already exists please pick another`,
+			message: `cannot post ${user.name} it is already exists please pick another`,
 			status: 400,
 			codeStatus: 'Bad Request',
 		};
