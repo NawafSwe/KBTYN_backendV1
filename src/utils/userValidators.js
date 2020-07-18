@@ -141,7 +141,7 @@ const validate = (method) => {
 				/*  ----------- PhoneNumber VALIDATION ----------- */
 				body('phoneNumber', 'phone number must be of type String').optional().isString(),
 				body('phoneNumber')
-					.exists()
+					.optional()
 					.custom((value, { req }) => {
 						if (value.length < 9 || value.length > 10)
 							throw new Error('phone number cannot be more than 10 or less than 9');
