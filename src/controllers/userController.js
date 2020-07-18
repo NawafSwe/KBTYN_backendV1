@@ -40,13 +40,13 @@ const postUser = async (user) => {
 		/*the process is to register the user using passport by passing user email and user name to be unique 
 		passport will do the check for the database if the username or the email is taken or not.
 		*/
-		const registerUser = new User({ phoneNumber: user.phoneNumber });
-		const response = User.register(registerUser, user.password, user.name);
-
+		const registerUser = new User({ username: user.username, phoneNumber: user.phoneNumber });
+		const response = User.register(registerUser, user.password);
 		//checking if the user is admin or customer or driver based in the register
+		const id = (await response).id;
 
 		if (user.isCustomer) {
-			const fetchUser = await User.findById(response.id);
+			const fetchUser = await User.findById(id);
 			fetchUser.isCustomer = true;
 			await fetchUser.save();
 			//initializing new customer
@@ -54,7 +54,7 @@ const postUser = async (user) => {
 			fetchUser._customer = newCustomer.id;
 			await fetchUser.save();
 		} else if (user.isDriver) {
-			const fetchUser = await User.findById(response.id);
+			const fetchUser = await User.findById(id);
 			fetchUser.isDriver = true;
 
 			//initializing new driver
@@ -62,7 +62,7 @@ const postUser = async (user) => {
 			fetchUser._driver = newDriver.id;
 			await fetchUser.save();
 		} else if (user.isAdmin) {
-			const fetchUser = await User.findById(response.id);
+			const fetchUser = await User.findById(id);
 			fetchUser.isAdmin = true;
 			await fetchUser.save();
 
@@ -71,10 +71,9 @@ const postUser = async (user) => {
 			fetchUser._Admin = newAdmin.id;
 			await fetchUser.save();
 		}
+
 		return {
-			name: response.name,
-			phoneNumber: response.phoneNumber,
-			id: response.id,
+			id: id,
 			message: 'user was added',
 			status: 200,
 			codeStatus: 'OK',
@@ -127,7 +126,7 @@ const putUser = async (id, user) => {
 		const response = await User.findById(id);
 		console.log(response);
 		return {
-			username: response.name,
+			username: response.username,
 			message: 'user was updated',
 			id: response.id,
 			code: 200,
@@ -180,7 +179,7 @@ const deleteUser = async (id) => {
 	try {
 		const response = await User.findByIdAndDelete(id);
 		return {
-			name: response.name,
+			username: response.username,
 			message: 'user was deleted',
 			id: response.id,
 			status: 200,
