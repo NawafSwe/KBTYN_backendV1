@@ -4,7 +4,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 /*---------------------------- creating schema ----------------------------*/
 const userSchema = mongoose.Schema({
-	username: { type: String, require: true, unique: true },
+	name: { type: String, require: true },
 	phoneNumber: { type: String, require: true, unique: true },
 	password: { type: String, require: true },
 	totalRating: { type: Number },
@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Driver',
 	},
+	_admin: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
 });
 
 /*---------------------------- creating the model in the DB ----------------------------*/

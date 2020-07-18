@@ -23,14 +23,4 @@ driverRouter.get('/:id', async (req, res) => {
 	}
 });
 
-/* '/acceptCustomer/:id' post route where it allows the driver to accept a customer request*/
-driverRouter.post('/acceptCustomer/:id', async (req, res) => {
-	const response = await driverController.acceptCustomer(req.params.id, req.body);
-	if (response.status === 500) {
-		res.json(response).status(500);
-	} else {
-		res.json(response).status(200);
-	}
-});
-
 module.exports = driverRouter;

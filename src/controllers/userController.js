@@ -40,8 +40,8 @@ const postUser = async (user) => {
 		/*the process is to register the user using passport by passing user email and user name to be unique 
 		passport will do the check for the database if the username or the email is taken or not.
 		*/
-		const registerUser = new User({ phoneNumber: user.phoneNumber, username: user.username });
-		const response = await User.register(registerUser, user.password);
+		const registerUser = new User({ phoneNumber: user.phoneNumber });
+		const response = User.register(registerUser, user.password, user.name);
 
 		//checking if the user is admin or customer or driver based in the register
 
@@ -72,7 +72,7 @@ const postUser = async (user) => {
 			await fetchUser.save();
 		}
 		return {
-			username: response.username,
+			name: response.name,
 			phoneNumber: response.phoneNumber,
 			id: response.id,
 			message: 'user was added',
@@ -82,7 +82,7 @@ const postUser = async (user) => {
 	} catch (e) {
 		console.log('error ocurred in userController at postUser() ', e.message);
 		return {
-			message: `cannot post ${user.username} or ${user.email} it is already exists please pick another`,
+			message: `cannot post ${user.name} or ${user.email} it is already exists please pick another`,
 			status: 400,
 			codeStatus: 'Bad Request',
 		};
@@ -109,8 +109,8 @@ const putUser = async (id, user) => {
 				const fetchUser = await User.findById(id);
 				await fetchUser.setPassword(value);
 				await fetchUser.save();
-			} else if (key === 'username') {
-				await User.findByIdAndUpdate(id, { username: value });
+			} else if (key === 'name') {
+				await User.findByIdAndUpdate(id, { name: value });
 			} else if (key === 'phoneNumber') {
 				await User.findByIdAndUpdate(id, { phoneNumber: value });
 			} else if (key === 'totalRating') {
@@ -127,7 +127,7 @@ const putUser = async (id, user) => {
 		const response = await User.findById(id);
 		console.log(response);
 		return {
-			username: response.username,
+			username: response.name,
 			message: 'user was updated',
 			id: response.id,
 			code: 200,
@@ -157,7 +157,7 @@ const getUserById = async (id) => {
 			.populate('_customer')
 			.populate('_driver')
 			.populate('_admin');
-		return { username: response.username, status: 200, codeStatus: 'OK',id:response.id, };
+		return { user: response, status: 200, codeStatus: 'OK', id: response.id };
 	} catch (e) {
 		console.log('error ocurred in userController at getUserById() ', e.message);
 		return {
@@ -180,7 +180,7 @@ const deleteUser = async (id) => {
 	try {
 		const response = await User.findByIdAndDelete(id);
 		return {
-			username: response.username,
+			name: response.name,
 			message: 'user was deleted',
 			id: response.id,
 			status: 200,
@@ -233,8 +233,6 @@ const getUserByPhone = async (user) => {
 		};
 	}
 };
-
-
 
 /* ----------------------------- exporting functions ----------------------------- */
 module.exports = { getUsers, postUser, putUser, deleteUser, getUserById, getUserByPhone };

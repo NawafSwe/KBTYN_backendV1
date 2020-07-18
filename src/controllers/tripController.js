@@ -40,7 +40,7 @@ const getTripById = async (id) => {
 	try {
 		const response = await Trip.findById(id);
 		return {
-			username: response,
+			trip: response,
 			status: 200,
 			codeStatus: 'OK',
 		};
@@ -57,39 +57,8 @@ const getTripById = async (id) => {
 
 const putTrip = async (id, trip) => {
 	try {
-		for (let [key, value] of Object.entries(trip)) {
-			if (key === 'location') {
-				await Trip.findByIdAndUpdate(id, { location: value });
-			} else if (key === 'rateDriver') {
-				await Trip.findByIdAndUpdate(id, { rateDriver: value });
-			} else if (key === 'rateUser') {
-				await Trip.findByIdAndUpdate(id, { rateUser: value });
-			} else if (key === 'tierOrSize') {
-				await Trip.findByIdAndUpdate(id, { tierOrSize: value });
-			} else if (key === 'time') {
-				await Trip.findByIdAndUpdate(id, { time: value });
-			} else if (key === 'date') {
-				await Trip.findByIdAndUpdate(id, { date: value });
-			} else if (key === 'isComplete') {
-				await Trip.findByIdAndUpdate(id, { isComplete: value });
-			} else if (key === 'statusUpdates') {
-				await Trip.findByIdAndUpdate(id, { statusUpdates: value });
-			} else if (key === 'username') {
-				await Trip.findByIdAndUpdate(id, { username: value });
-			} else if (key === 'pa') {
-				await Trip.findByIdAndUpdate(id, { pa: value });
-			}
-			//customers here
-			//driver here
-		}
-		const response = await Trip.findById(id);
-		console.log(response);
-		return {
-			id: response.id,
-			message: 'trip was updated',
-			code: 200,
-			codeStatus: 'OK',
-		};
+		const response = await Trip.findByIdAndUpdate(id, trip);
+		return response;
 	} catch (e) {
 		console.log('error ocurred in tripController at putTrip() ', e.message);
 		return {
@@ -104,7 +73,7 @@ const deleteTrip = async (id) => {
 	try {
 		const response = await Trip.findByIdAndDelete(id);
 		return {
-			trip: response.trip,
+			trip: response.id,
 			message: 'trip was deleted',
 			status: 200,
 			codeStatus: 'OK',

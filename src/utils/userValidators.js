@@ -37,7 +37,7 @@ const validate = (method) => {
 				body(' ').custom((value, { req }) => {
 					//  first specifying the schemas of the request to stop any request happing if any;
 					const schemas = [
-						'username',
+						'name',
 						'phoneNumber',
 						'password',
 						'totalRating',
@@ -53,15 +53,14 @@ const validate = (method) => {
 				/*  ----------- END OF SCHEMA VALIDATION ----------- */
 
 				/*  ----------- Username VALIDATION ----------- */
-				body('username', 'username is required').exists(),
-				body('username.length', 'username cannot be empty string').exists().not().equals('0'),
-				body('username')
+				body('name', 'name is required').exists(),
+				body('name.length', 'username cannot be empty string').exists().not().equals('0'),
+				body('name')
 					.exists()
 					.custom((value, { req }) => {
 						if (value.length == 1 || value.length < 4)
-							throw new Error('username must be of length 4 chars or more');
-						else if (value === '' || value === ' ')
-							throw new Error('username cannot be empty String');
+							throw new Error('name must be of length 4 chars or more');
+						else if (value === '' || value === ' ') throw new Error('name cannot be empty String');
 						else return true;
 					}),
 
@@ -99,7 +98,7 @@ const validate = (method) => {
 
 				/*  ----------- isDriver VALIDATION ----------- */
 				body('isDriver', 'isDriver must be of type boolean').optional().isBoolean(),
-				
+
 				/*  ----------- isCustomer VALIDATION ----------- */
 				body('isCustomer', 'isCustomer must be of type boolean').optional().isBoolean(),
 
@@ -113,7 +112,7 @@ const validate = (method) => {
 				body(' ').custom((value, { req }) => {
 					//  first specifying the schemas of the request to stop any request happing if any;
 					const schemas = [
-						'username',
+						'name',
 						'phoneNumber',
 						'password',
 						'totalRating',
@@ -129,14 +128,13 @@ const validate = (method) => {
 				/*  ----------- END OF SCHEMA VALIDATION ----------- */
 
 				/*  ----------- Username VALIDATION ----------- */
-				body('username.length', 'username cannot be empty string').optional().not().equals('0'),
-				body('username')
+				body('name.length', 'username cannot be empty string').optional().not().equals('0'),
+				body('name')
 					.optional()
 					.custom((value, { req }) => {
 						if (value.length == 1 || value.length < 4)
-							throw new Error('username must be of length 4 chars or more');
-						else if (value === '' || value === ' ')
-							throw new Error('username cannot be empty String');
+							throw new Error('name must be of length 4 chars or more');
+						else if (value === '' || value === ' ') throw new Error('name cannot be empty String');
 						else return true;
 					}),
 

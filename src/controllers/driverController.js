@@ -13,7 +13,7 @@ const { response } = require('express');
 const getDrivers = async () => {
 	try {
 		// finding all drivers and populating all the info of the user
-		const response = await Driver.find({}).populate('user').populate('listOfCustomers');
+		const response = await Driver.find({}).populate('user');
 		return response;
 	} catch (e) {
 		console.log(`error happened at the driverController at getDrivers ${e}`);
@@ -29,7 +29,7 @@ const getDrivers = async () => {
  */
 const getDriverById = async (id) => {
 	try {
-		const response = await (await Driver.findById(id)).populate('user').populate('listOfCustomers');
+		const response = await (await Driver.findById(id)).populate('user');
 		return response;
 	} catch (e) {
 		console.log(`error happen in driverController in getDriverById() ${e}`);
@@ -127,4 +127,4 @@ const acceptCustomer = async (id, customer) => {
 };
 
 /* ----------------------------- exporting functions ----------------------------- */
-module.exports = { getDrivers, deleteDriver, getDriverById, putDriver, postDriver, acceptCustomer };
+module.exports = { getDrivers, deleteDriver, getDriverById, putDriver, postDriver};
