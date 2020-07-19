@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
 	username: { type: String, require: true },
 	phoneNumber: { type: String, require: true, unique: true },
 	password: { type: String, require: true },
+	name: {type:String} , 
 	totalRating: { type: Number },
 	numberOfRated: { type: Number },
 	isDriver: { type: Boolean, default: false },

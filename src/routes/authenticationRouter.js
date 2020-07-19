@@ -23,6 +23,7 @@ authenticationRouter.post('/login', (req, res, next) => {
 				message: `successfully logged in as ${user.username}`,
 				status: 200,
 				statusMessage: 'OK',
+				id: user.id,
 			};
 			return res.json(response).status(200);
 		});

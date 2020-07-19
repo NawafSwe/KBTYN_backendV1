@@ -37,7 +37,6 @@ const validate = (method) => {
 				body(' ').custom((value, { req }) => {
 					//  first specifying the schemas of the request to stop any request happing if any;
 					const schemas = [
-						'username',
 						'phoneNumber',
 						'password',
 						'totalRating',
@@ -47,15 +46,16 @@ const validate = (method) => {
 						'isCustomer',
 						'_customer',
 						'_driver',
+						'name',
 					];
 					if (validateSchema(schemas, req)) return true;
 				}),
 				/*  ----------- END OF SCHEMA VALIDATION ----------- */
 
-				/*  ----------- Username VALIDATION ----------- */
-				body('username', 'name is required').exists(),
-				body('username.length', 'username cannot be empty string').exists().not().equals('0'),
-				body('username')
+				// /*  ----------- name VALIDATION ----------- */
+				body('name', 'name is required').exists(),
+				body('name.length', 'name cannot be empty string').exists().not().equals('0'),
+				body('name')
 					.exists()
 					.custom((value, { req }) => {
 						if (value.length == 1 || value.length < 4)
@@ -112,7 +112,7 @@ const validate = (method) => {
 				body(' ').custom((value, { req }) => {
 					//  first specifying the schemas of the request to stop any request happing if any;
 					const schemas = [
-						'username',
+						'name',
 						'phoneNumber',
 						'password',
 						'totalRating',
@@ -128,8 +128,8 @@ const validate = (method) => {
 				/*  ----------- END OF SCHEMA VALIDATION ----------- */
 
 				/*  ----------- Username VALIDATION ----------- */
-				body('username.length', 'username cannot be empty string').optional().not().equals('0'),
-				body('username')
+				body('name.length', 'name cannot be empty string').optional().not().equals('0'),
+				body('name')
 					.optional()
 					.custom((value, { req }) => {
 						if (value.length == 1 || value.length < 4)

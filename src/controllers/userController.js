@@ -21,7 +21,7 @@ const getUsers = async () => {
 		console.log(`error happen in user controller at getUsers() error message : ${e.message}`);
 		return {
 			message: ` something went wrong cannot get users error is ${e.message}`,
-			code: 400,
+			status: 400,
 			codeStatus: 'Bad Request',
 		};
 	}
@@ -40,11 +40,21 @@ const postUser = async (user) => {
 		/*the process is to register the user using passport by passing user email and user name to be unique 
 		passport will do the check for the database if the username or the email is taken or not.
 		*/
-		const registerUser = new User({ username: user.username, phoneNumber: user.phoneNumber });
+		const registerUser = new User({
+			username: 'n' + user.phoneNumber,
+			phoneNumber: user.phoneNumber,
+		});
 		const response = User.register(registerUser, user.password);
 		//checking if the user is admin or customer or driver based in the register
+		//holding the id of the user
 		const id = (await response).id;
 
+		//setting the name of the user
+		if (user.name) {
+			const fetchUser = await User.findById(id);
+			fetchUser.name = user.name;
+			await fetchUser.save();
+		}
 		if (user.isCustomer) {
 			const fetchUser = await User.findById(id);
 			fetchUser.isCustomer = true;
@@ -75,6 +85,7 @@ const postUser = async (user) => {
 		return {
 			id: id,
 			message: 'user was added',
+			username: `n${user.phoneNumber}`,
 			status: 200,
 			codeStatus: 'OK',
 		};
@@ -111,7 +122,7 @@ const putUser = async (id, user) => {
 			} else if (key === 'name') {
 				await User.findByIdAndUpdate(id, { name: value });
 			} else if (key === 'phoneNumber') {
-				await User.findByIdAndUpdate(id, { phoneNumber: value });
+				await User.findByIdAndUpdate(id, { phoneNumber: value, username: `n${value}` });
 			} else if (key === 'totalRating') {
 				await User.findByIdAndUpdate(id, { totalRating: value });
 			} else if (key === 'numberOfRated') {
@@ -128,15 +139,15 @@ const putUser = async (id, user) => {
 		return {
 			username: response.username,
 			message: 'user was updated',
-			id: response.id,
-			code: 200,
+			id: id,
+			status: 200,
 			codeStatus: 'OK',
 		};
 	} catch (e) {
 		console.log('error ocurred in userController at putUser() ', e.message);
 		return {
 			message: ` something went wrong cannot update the user with the id ${id}`,
-			code: 400,
+			status: 400,
 			codeStatus: 'Bad Request',
 		};
 	}
@@ -161,7 +172,7 @@ const getUserById = async (id) => {
 		console.log('error ocurred in userController at getUserById() ', e.message);
 		return {
 			message: ` something went wrong cannot get the user with the id ${id}`,
-			code: 404,
+			status: 404,
 			codeStatus: 'Not Found',
 		};
 	}
@@ -190,7 +201,7 @@ const deleteUser = async (id) => {
 		console.log(e);
 		return {
 			message: ` something went wrong cannot delete the user with the id ${id}`,
-			code: 404,
+			status: 404,
 			codeStatus: 'Not Found',
 		};
 	}
@@ -227,7 +238,7 @@ const getUserByPhone = async (user) => {
 		console.log(e);
 		return {
 			message: ` something went wrong cannot get the user with the id ${userPhone}`,
-			code: 404,
+			status: 404,
 			codeStatus: 'Not Found',
 		};
 	}
