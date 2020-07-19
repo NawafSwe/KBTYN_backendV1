@@ -24,6 +24,20 @@ authenticationRouter.post('/login', (req, res, next) => {
 				status: 200,
 				statusMessage: 'OK',
 				id: user.id,
+				user: {
+					id: user.id,
+					username: user.username,
+					phoneNumber: user.phoneNumber,
+					name: user.name,
+					isDriver: user.isDriver,
+					isAdmin: user.isAdmin,
+					isCustomer: user.isCustomer,
+					totalRating: user.totalRating,
+					numberOfRated: user.numberOfRated,
+					_customer: user._customer,
+					_driver: user._driver,
+					_admin: user._admin,
+				},
 			};
 			return res.json(response).status(200);
 		});
