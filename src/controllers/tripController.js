@@ -90,7 +90,7 @@ const deleteTrip = async (id) => {
 };
 const getTripByLocation = async (destination) => {
 	try {
-		const response = await Trip.find({ location: destination })
+		const response = await Trip.find({ location: destination.location })
 			.populate('customer')
 			.populate('driver');
 		return response;
