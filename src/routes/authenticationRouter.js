@@ -33,7 +33,7 @@ authenticationRouter.post('/login', (req, res, next) => {
 /* '/logout'  to log out user from the application */
 authenticationRouter.get('/logout', async (req, res) => {
 	req.logOut();
-	const response = { message: `${req.user.name}logged out successfully` };
+	const response = { message: `${req}logged out successfully` };
 	res.json(response).status(200);
 });
 
