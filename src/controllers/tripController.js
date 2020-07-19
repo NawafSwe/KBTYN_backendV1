@@ -65,6 +65,7 @@ const putTrip = async (id, trip) => {
 			message: ` something went wrong cannot update the trip with the id ${id}`,
 			code: 400,
 			codeStatus: 'Bad Request',
+			errorMessage : e
 		};
 	}
 };
