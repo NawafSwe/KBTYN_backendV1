@@ -12,4 +12,8 @@ customerRouter.get('/', async (req, res) => {
 	}
 });
 
+
+
+
+
 module.exports = customerRouter;

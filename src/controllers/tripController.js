@@ -3,7 +3,7 @@ const Trip = require('../models/trip');
 
 const getTrips = async () => {
 	try {
-		const response = await Trip.find({});
+		const response = await Trip.find({}).populate('customer').populate('driver');
 		return response;
 	} catch (e) {
 		console.log(`error happened in the trip controller at getTrips() error message : ${e.message}`);
@@ -38,7 +38,7 @@ const postTrip = async (trip) => {
 
 const getTripById = async (id) => {
 	try {
-		const response = await Trip.findById(id);
+		const response = await Trip.findById(id).populate('customer').populate('driver');
 		return {
 			trip: response,
 			status: 200,
@@ -90,7 +90,9 @@ const deleteTrip = async (id) => {
 };
 const getTripByLocation = async (destination) => {
 	try {
-		const response = await Trip.find({ location: destination });
+		const response = await Trip.find({ location: destination })
+			.populate('customer')
+			.populate('driver');
 		return response;
 	} catch (err) {
 		console.log(
