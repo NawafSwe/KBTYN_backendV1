@@ -7,4 +7,5 @@
 <li>make sure you have mongodb in your machine</li>
 <li>run `npm i`</li>
 <li>to run it locally run `npm run dev` or in production run `npm run start:prod`</li>
+<p> the backend developed using nodeJS and mongoDB the database is hosted on mongoAtlas and the backend server hosted via heroku in the following link `https://kptyn.herokuapp.com`</p>
 </ul>
