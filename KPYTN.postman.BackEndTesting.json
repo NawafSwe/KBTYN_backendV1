@@ -1,0 +1,483 @@
+{
+	"info": {
+		"_postman_id": "738d16c2-3160-4c14-b31e-3629231cfd61",
+		"name": "KPYTN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Model End Points",
+			"item": [
+				{
+					"name": "get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/users/5f164a79913f7f1708d3dc0b",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"5f164a79913f7f1708d3dc0b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get  users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/users",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"0545566100\",\n    \"name\": \"nawaf bader\",\n    \"isCustomer\":true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/users",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/users/5f14408d99b73600174cb51f",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"5f14408d99b73600174cb51f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"0545566200\",\n    \"name\": \"nawaf bader\"\n   \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/users/5f14408d99b73600174cb51f",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"5f14408d99b73600174cb51f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by phone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"0546677100\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/users/getUserByPhone",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"getUserByPhone"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customer Model End Points",
+			"item": [
+				{
+					"name": "get customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/customers",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Trips Model End Points",
+			"item": [
+				{
+					"name": "get trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/trips",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get trip by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/trips/5f149539ff56e80017e9e13c",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"trips",
+								"5f149539ff56e80017e9e13c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post trip ",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\": \"dammam\",\n    \"tierOrSize\": \"0\",\n    \"driver\": \"5f1345ae1fee980017483601\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/trips",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put trip",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\":\"rafha\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/trips/5f164a79913f7f1708d3dc0b",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"trips",
+								"5f164a79913f7f1708d3dc0b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete trip",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/trips/5f164a79913f7f1708d3dc0b",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"trips",
+								"5f164a79913f7f1708d3dc0b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get trip by location ",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\":\"dammam\",\n    \"tierOrSize\": \"small\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/trips/getTripByLocation",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"trips",
+								"getTripByLocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adding for trip statusUpdates",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"statusUpdates\": \"<html>hacccckk<html>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/trips/5f16276a3bb214001793a9f1/statusUpdates",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"trips",
+								"5f16276a3bb214001793a9f1",
+								"statusUpdates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adding customer to trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer\": \"5f16938692ef0c0017c7ce99\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/trips/5f16276a3bb214001793a9f1/customers",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"trips",
+								"5f16276a3bb214001793a9f1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Driver Model End Points",
+			"item": [
+				{
+					"name": "get drivers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/drivers",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"drivers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get driver by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"5f0f03c5ae82d11c2c67fffb\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kptyn.herokuapp.com/drivers/5f16de153f6caf0017380af9",
+							"protocol": "https",
+							"host": [
+								"kptyn",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"drivers",
+								"5f16de153f6caf0017380af9"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
