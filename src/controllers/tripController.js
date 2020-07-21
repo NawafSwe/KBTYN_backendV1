@@ -2,11 +2,14 @@
 const Trip = require('../models/trip');
 const driverController = require('../controllers/driverController');
 const Driver = require('../models/driver');
+const customerController = require('../controllers/customerController');
+const Customer = require('../models/customer');
 
 const getTrips = async () => {
 	try {
 		const response = await Trip.find({}).populate('customer').populate('driver');
 		return response;
+		
 	} catch (e) {
 		console.log(`error happened in the trip controller at getTrips() error message : ${e.message}`);
 		return {

@@ -84,4 +84,4 @@ const deleteCustomer = async (id) => {
 };
 
 /* ----------------------------- exporting functions ----------------------------- */
-module.exports = { getCustomers, deleteCustomer };
+module.exports = { getCustomers, deleteCustomer};
