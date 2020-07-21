@@ -14,4 +14,11 @@ TO view page admin and test it
 
 Phone number of the admin is 0599999999 and the password is 12345678
 
+*Fixes: 
+1- sanitization the body of the comments for a trip
+2-adding two controllers for the trip which they are 
+  * addUpdateToTrip : to add a status updates for a trip
+  * addCustomerToTrip : to add a customer inside the trip 
+
+
 
