@@ -1,5 +1,7 @@
 /* ----------------------------- importing packages ----------------------------- */
 const Trip = require('../models/trip');
+const driverController = require('../controllers/driverController');
+const Driver = require('../models/driver');
 
 const getTrips = async () => {
 	try {
@@ -65,7 +67,7 @@ const putTrip = async (id, trip) => {
 			message: ` something went wrong cannot update the trip with the id ${id}`,
 			code: 400,
 			codeStatus: 'Bad Request',
-			errorMessage : e
+			errorMessage: e,
 		};
 	}
 };
@@ -107,5 +109,24 @@ const getTripByLocation = async (trip) => {
 	}
 };
 
+const getDriverOfTrip = async (id) => {
+	try {
+		const response = await Trip.findById(id);
+		const driverId = await response.driver;
+		const driver = await driverController.getDriverById(driverId);
+		return driver;
+	} catch (e) {
+		console.log('error', e);
+	}
+};
+
 /* ----------------------------- exporting functions ----------------------------- */
-module.exports = { getTrips, putTrip, deleteTrip, getTripById, getTripByLocation, postTrip };
+module.exports = {
+	getTrips,
+	putTrip,
+	deleteTrip,
+	getTripById,
+	getTripByLocation,
+	postTrip,
+	getDriverOfTrip,
+};

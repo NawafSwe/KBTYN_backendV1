@@ -29,7 +29,7 @@ const getDrivers = async () => {
  */
 const getDriverById = async (id) => {
 	try {
-		const response = await (await Driver.findById(id)).populate('user');
+		const response =  await Driver.findById(id).populate('user');
 		return response;
 	} catch (e) {
 		console.log(`error happen in driverController in getDriverById() ${e}`);
