@@ -84,7 +84,8 @@ const putTrip = async (id, trip) => {
 				await Trip.findByIdAndUpdate(id, { isComplete: value });
 			} else if (key === 'customer') {
 				const fetchTrip = await Trip.findById(id);
-				fetchTrip.customer.push(value);
+				const customersList = [...(await fetchTrip.customer), value];
+				fetchTrip.customer = customersList;
 				await fetchTrip.save();
 			} else if (key === 'driver') {
 				await Trip.findByIdAndUpdate(id, { driver: value });
