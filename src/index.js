@@ -84,7 +84,7 @@ passport.deserializeUser(User.deserializeUser());
 
 /* -------------- checking backend health ---------------------- */
 app.get('/', (req, res) => {
-	res.send('Hello World').status(200);
+	res.send('Hello World Updated test').status(200);
 });
 
 /* -------------- Importing routers ---------------------- */
