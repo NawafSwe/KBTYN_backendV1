@@ -172,6 +172,25 @@ const addCustomerToTrip = async (id, customer) => {
 	}
 };
 
+const addUpdateToTrip = async (id, body) => {
+	try {
+		const response = await Trip.findById(id);
+		await response.statusUpdates.push(body.statusUpdates);
+		await response.save();
+		
+
+		return response.populate('customer').populate('driver');
+	} catch (e) {
+		console.log(`error happened in the trip controller`, e);
+		return {
+			message: ` something went wrong cannot addUpdateToTrip, error: ${err.message}`,
+			code: 400,
+			codeStatus: 'Bad Request',
+			errorType: e,
+		};
+	}
+};
+
 /* ----------------------------- exporting functions ----------------------------- */
 module.exports = {
 	getTrips,
@@ -182,4 +201,5 @@ module.exports = {
 	postTrip,
 	getDriverOfTrip,
 	addCustomerToTrip,
+	addUpdateToTrip
 };
