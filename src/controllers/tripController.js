@@ -9,7 +9,6 @@ const getTrips = async () => {
 	try {
 		const response = await Trip.find({}).populate('customer').populate('driver');
 		return response;
-		
 	} catch (e) {
 		console.log(`error happened in the trip controller at getTrips() error message : ${e.message}`);
 		return {
@@ -62,6 +61,35 @@ const getTripById = async (id) => {
 
 const putTrip = async (id, trip) => {
 	try {
+		for (let [key, value] of Object.entries(trip)) {
+			if (key === 'location') {
+				await Trip.findByIdAndUpdate(id, { location: value });
+			} else if (key === 'rateDriver') {
+				await Trip.findByIdAndUpdate(id, { rateDriver: value });
+			} else if (key === 'rateUser') {
+				await Trip.findByIdAndUpdate(id, { rateUser: value });
+			} else if (key === 'tierOrSize') {
+				await Trip.findByIdAndUpdate(id, { tierOrSize: value });
+			} else if (key === 'time') {
+				await Trip.findByIdAndUpdate(id, { time: value });
+			} else if (key === 'date') {
+				await Trip.findByIdAndUpdate(id, { date: value });
+			} else if (key === 'statusUpdates') {
+				const fetchTrip = await Trip.findById(id);
+				fetchTrip.statusUpdates.push(value);
+				await fetchTrip.save();
+			} else if (key === 'passengerAmount') {
+				await Trip.findByIdAndUpdate(id, { passengerAmount: value });
+			} else if (key === 'isComplete') {
+				await Trip.findByIdAndUpdate(id, { isComplete: value });
+			} else if (key === 'customer') {
+				const fetchTrip = await Trip.findById(id);
+				fetchTrip.customer.push(value);
+				await fetchTrip.save();
+			} else if (key === 'driver') {
+				await Trip.findByIdAndUpdate(id, { driver: value });
+			}
+		}
 		const response = await Trip.findByIdAndUpdate(id, trip);
 		return response;
 	} catch (e) {
