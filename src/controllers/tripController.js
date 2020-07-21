@@ -136,6 +136,7 @@ const getTripByLocation = async (trip) => {
 			message: ` something went wrong cannot get trips by destination, error: ${err.message}`,
 			code: 400,
 			codeStatus: 'Bad Request',
+			errorType: e,
 		};
 	}
 };
@@ -151,6 +152,26 @@ const getDriverOfTrip = async (id) => {
 	}
 };
 
+const addCustomerToTrip = async (id, customer) => {
+	try {
+		const response = await Trip.findById(id);
+		//const fetchCustomer  = await Customer.findById(customer);
+		await response.customer.push(customer.customer);
+		await response.save();
+		console.log(response);
+
+		return response.populate('customer').populate('driver');
+	} catch (e) {
+		console.log(`error happened in the trip controller`, e);
+		return {
+			message: ` something went wrong cannot addCustomerToTrip, error: ${err.message}`,
+			code: 400,
+			codeStatus: 'Bad Request',
+			errorType: e,
+		};
+	}
+};
+
 /* ----------------------------- exporting functions ----------------------------- */
 module.exports = {
 	getTrips,
@@ -160,4 +181,5 @@ module.exports = {
 	getTripByLocation,
 	postTrip,
 	getDriverOfTrip,
+	addCustomerToTrip,
 };

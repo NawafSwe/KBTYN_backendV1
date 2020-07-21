@@ -67,4 +67,12 @@ tripRouter.get('/:id/getDriverOfTrip',async(req,res)=>{
 	else res.json(response).status(400);
 });
 
+tripRouter.post('/:id/customers',async (req,res)=>{
+	const response = await tripController.addCustomerToTrip(req.params.id,req.body);
+	// checking the code status if its 200
+	if (response.code === 200) res.json(response).status(200);
+	//else just return the whole
+	else res.json(response).status(400);
+});
+
 module.exports = tripRouter;
